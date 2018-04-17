@@ -1,0 +1,7 @@
+version: '3.3'
+  services:
+    logspout:
+      image: gliderlabs/logspout:v3
+      command: 'syslog+tcp://172.16.99.130:5000'
+      volumes:
+        - '/var/run/docker.sock:/tmp/docker.sock'
