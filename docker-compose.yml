@@ -1,18 +1,36 @@
-version: '3.6'
+version: '3.3'
 services:
-  elasticsearch:
-    image: 'docker.elastic.co/elasticsearch/elasticsearch:6.1.3'
+  logspout:
+    image: gliderlabs/logspout:v3
+    command: 'syslog+tcp://172.16.99.130:5000'
     volumes:
-      - /home/xushikuan/data/elasticsearch:/usr/share/elasticsearch/data
-    ports:
-      - '9200:9200'
-      - '9300:9300'
+      - '/var/run/docker.sock:/tmp/docker.sock'
+    #image: gliderlabs/logspout:v3
+    #command: 'syslog://logstash:5000'
+    #links:
+    #  - logstash
+    #volumes:
+    #  - '/var/run/docker.sock:/tmp/docker.sock'
+
+  logstash:
+    image: ludekvesely/logstash-json
     environment:
-      - xpack.security.enabled=false
-      - "ES_JAVA_OPTS=-Xmx512m -Xms512m"
+      - LOGSPOUT=ignore
+      - DROP_NON_JSON=false
+      - STDOUT=true
+    links:
+      - elasticsearch
+
   kibana:
-    image: 'docker.elastic.co/kibana/kibana:6.1.3'
+    image: kibana
+    environment:
+      - LOGSPOUT=ignore
+    links:
+      - elasticsearch
     ports:
       - '5601:5601'
-    depends_on:
-      - elasticsearch
+
+  elasticsearch:
+    image: elasticsearch
+    environment:
+      - LOGSPOUT=ignore
