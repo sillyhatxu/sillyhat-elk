@@ -1,7 +1,33 @@
 version: '3.3'
+networks:
+  logging:
 services:
   logspout:
     image: 'gliderlabs/logspout:v3.2.4'
-    command: 'syslog+tcp://172.16.99.130:5000'
+    networks:
+      - logging
+    command: 'syslog://172.16.99.130:5000'
     volumes:
       - '/var/run/docker.sock:/tmp/docker.sock'
+#version: "3"
+#networks:
+#  logging:
+#services:
+#  logspout:
+#  image: 'gliderlabs/logspout:v3.2.4'
+#  networks:
+#    - logging
+#  volumes:
+#    - /etc/hostname:/etc/host_hostname:ro
+#    - /var/run/docker.sock:/var/run/docker.sock
+#  command:
+#    syslog://svt2-logger.am2.cloudra.local:514
+#  deploy:
+#    mode: global
+#    resources:
+#      limits:
+#        cpus: '0.20'
+#        memory: 256M
+#      reservations:
+#        cpus: '0.10'
+#      memory: 128M
