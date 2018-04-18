@@ -11,7 +11,7 @@ services:
     environment:
       - DROP_NON_JSON=false
       - STDOUT=true
-   volumes:
+    volumes:
       - /home/xushikuan/sillyhat-elk/Logstash/logstash.conf:/usr/share/logstash/pipeline/logstash.conf
     depends_on:
       - elasticsearch
