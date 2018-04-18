@@ -3,8 +3,6 @@
 标准配置文件应该包含 version、services、networks 三大部分，其中最关键的就是 services 和 networks 两个部分，下面先来看 services 的书写规则。
 ##version
 版本对应关系：Please read [compose-file](https://docs.docker.com/compose/compose-file/)
-
-![image](https://github.com/xushikuan/sillyhat-elk/tree/master/file/docker-compose/compose-file-version.png)
 ![image](https://github.com/xushikuan/sillyhat-elk/raw/master/file/docker-compose/compose-file-version.png)
 
 ```
