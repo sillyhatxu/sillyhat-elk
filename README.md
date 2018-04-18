@@ -4,7 +4,7 @@
 ##version
 版本对应关系：Please read [compose-file](https://docs.docker.com/compose/compose-file/)
 
-![image](https://github.com/sillyhat-elk/file/docker-compose/compose-file-version.png)
+![image](https://github.com/xushikuan/sillyhat-elk/tree/master/file/docker-compose/compose-file-version.png)
 
 ```
 version: '3.3'
