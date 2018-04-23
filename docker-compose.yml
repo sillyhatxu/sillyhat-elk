@@ -7,7 +7,7 @@ services:
     networks:
       - elk
     volumes:
-      - /home/xushikuan/data/elasticsearch:/usr/share/elasticsearch/data
+      - /home/xushikuan/elasticsearch/data:/usr/share/elasticsearch/data
     ports:
       - '9200:9200'
       - '9300:9300'
