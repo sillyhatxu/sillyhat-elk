@@ -1,5 +1,9 @@
 #docker-compose.yml详解
 
+Linux需要执行如下语句，否则无法启动elasticsearch
+```
+sudo sysctl -w vm.max_map_count=262144
+```
 docker stack deploy -c docker-compose.yml elk
 
 logspout
