@@ -14,40 +14,50 @@ sudo docker run -d --name=logspout --volume=/var/run/docker.sock:/var/run/docker
 ```
 sudo docker run -d --name=logspout --volume=/var/run/docker.sock:/var/run/docker.sock gliderlabs/logspout syslog+tcp://172.16.99.130:5000
 ```
-
+本地目录向docker中映射
+```
+volumes:
+  - /home/xushikuan/elasticsearch/data:/usr/share/elasticsearch/data
+```
+服务启动依赖
+```
+depends_on:
+  - elasticsearch
+```
+docker-compose.yml配置
 ```
 version: '3.3'
 networks:
   elk:
 services:
   elasticsearch:
-    image: 'docker.elastic.co/elasticsearch/elasticsearch:6.1.3'
+    image: docker.elastic.co/elasticsearch/elasticsearch:6.1.3
     networks:
       - elk
     volumes:
       - /home/xushikuan/elasticsearch/data:/usr/share/elasticsearch/data
     ports:
-      - '9200:9200'
-      - '9300:9300'
+      - 9200:9200
+      - 9300:9300
     environment:
       - xpack.security.enabled=false
       - "ES_JAVA_OPTS=-Xmx1024m -Xms1024m"
 
   kibana:
-    image: 'docker.elastic.co/kibana/kibana:6.1.3'
+    image: docker.elastic.co/kibana/kibana:6.1.3
     networks:
       - elk
     ports:
-      - '5601:5601'
+      - 5601:5601
     depends_on:
       - elasticsearch
 
   logstash:
-    image: 'docker.elastic.co/logstash/logstash:6.1.3'
+    image: docker.elastic.co/logstash/logstash:6.1.3
     networks:
       - elk
     ports:
-      - '5000:5000'
+      - 5000:5000
     environment:
       - DROP_NON_JSON=false
       - STDOUT=true
