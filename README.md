@@ -4,8 +4,14 @@ Linux需要执行如下语句，否则无法启动elasticsearch
 ```
 sudo sysctl -w vm.max_map_count=262144
 ```
+启动
+```
 docker stack deploy -c docker-compose.yml elk
-
+```
+停止
+```
+docker stack rm elk
+```
 logspout
 ```
 sudo docker run -d --name=logspout --volume=/var/run/docker.sock:/var/run/docker.sock gliderlabs/logspout tcp://172.28.2.25:5000
@@ -13,6 +19,10 @@ sudo docker run -d --name=logspout --volume=/var/run/docker.sock:/var/run/docker
 如果希望采集docker信息，则需要发送syslog日志
 ```
 sudo docker run -d --name=logspout --volume=/var/run/docker.sock:/var/run/docker.sock gliderlabs/logspout syslog+tcp://172.16.99.130:5000
+```
+其中如下配置为logstash的ip:port
+```
+tcp://172.28.2.25:5000
 ```
 本地目录向docker中映射
 ```
